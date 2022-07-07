@@ -9,6 +9,7 @@ import CurrencyItemDetails from '../CurrencyItemDetails/CurrencyItemDetails'
 
 function CurrencyList() {
     const [currencyItems, setcurrencyItems] = useState([]);
+    const [filterableCurrencyItems, setFilterableCurrencyItems] = useState([])
     const [currencyItemDetails, setcurrencyItemDetails] = useState<ASSET>()
     const [hasData, setHasData] = useState(false)
 
@@ -19,8 +20,6 @@ function CurrencyList() {
       }
     };
 
-    console.log(setcurrencyItemDetails)
-
     useEffect(()=>{
       axios.get(`${baseUrl}v1/assets`,  {
         headers: {
@@ -28,10 +27,19 @@ function CurrencyList() {
         }
       })
       .then(res => {
-        const assests = res.data;
-        setcurrencyItems(assests)
+        const assets = res.data;
+        setcurrencyItems(assets)
+        setFilterableCurrencyItems(assets)
       })
     }, [])
+
+    const setNewData = (e:React.ChangeEvent<HTMLInputElement>) =>{
+      const searchParam = e.target.value.toLocaleLowerCase();
+      const updatedList = [...currencyItems];
+      const filteredData = updatedList.filter((item:any) =>item.name.toLowerCase().includes(searchParam))
+      setFilterableCurrencyItems(filteredData)
+    }
+
 
     const listColumns: Array<COLUMNITEM> = [
       {
@@ -47,13 +55,16 @@ function CurrencyList() {
     return (
         <div style={{display:"flex",flexDirection:"row" }}>
           <div style={{height:"400px", width:"400px", border:"1px solid black", overflow:"scroll" }}>
-          <BootstrapTable keyField='asset_id' data={ currencyItems } columns={ listColumns } rowEvents={ rowEvents} />
+            <input type="text" placeholder='search...' onChange={setNewData}></input>
+          <BootstrapTable keyField='asset_id' data={ filterableCurrencyItems } columns={ listColumns } rowEvents={ rowEvents} />
           </div>
-          <div style={{height:"400px", width:"400px", border:"1px solid black" }}>
-
+          <div style={{height:"400px", width:"400px", border:"1px solid black", display:"flex", flexDirection:"column" }}>
             {
               hasData && <CurrencyItemDetails data={currencyItemDetails} />
             }
+            <div style={{height:"400px", width:"400px", border:"1px solid black", overflow:"scroll" }}>
+
+            </div>
           </div>
           
         </div>
