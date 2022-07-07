@@ -1,0 +1,1 @@
+export const baseUrl: string = "http://rest-sandbox.coinapi.io/"

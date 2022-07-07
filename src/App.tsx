@@ -1,10 +1,10 @@
 import React from 'react';
 import './App.css';
-
+import CurrencyList from './components/CurrencyList'
 function App() {
   return (
     <div className="App">
-     <h1>Alliance</h1>
+     <CurrencyList />
     </div>
   );
 }
