@@ -1,12 +1,12 @@
 import  {useState, useEffect} from 'react'
 import {baseUrl} from '../../constants/baseUrl'
-import { API_KEY } from '../../ENV/apiKey';
 import axios from 'axios';
 import {COLUMNITEM} from '../../interfaces/columnItems'
 import { ASSET } from '../../interfaces/asset';
 import BootstrapTable from 'react-bootstrap-table-next';
-import CurrencyItemDetails from '../CurrencyItemDetails/CurrencyItemDetails'
+import CurrencyItemDetails from '../CurrencyItemDetails'
 import CurrencyExchange from '../CurrencyExchange'
+import './styles.css'
 
 function CurrencyList() {
     const [currencyItems, setcurrencyItems] = useState([]);
@@ -19,7 +19,7 @@ function CurrencyList() {
     useEffect(()=>{
       axios.get(`${baseUrl}v1/assets`,  {
         headers: {
-          'X-CoinAPI-Key': API_KEY ,
+          'X-CoinAPI-Key': '41750804-A2C7-4AF6-93CB-B9B06ECD4F76' ,
         }
       })
       .then(res => {
@@ -45,7 +45,7 @@ function CurrencyList() {
           setCurrencyExchangeIds(newCurrencyExchangeData)
         }
         else{
-          setCurrencyExchangeIds(row.asset_id)
+          setCurrencyExchangeIds([row.asset_id])
         }
       }
     };
@@ -53,7 +53,7 @@ function CurrencyList() {
     useEffect(()=>{
           axios.get(`${baseUrl}v1/exchangerate/${currencyExchangeIds[0]}/${currencyExchangeIds[1]}`,  {
             headers: {
-              'X-CoinAPI-Key': API_KEY ,
+              'X-CoinAPI-Key': '41750804-A2C7-4AF6-93CB-B9B06ECD4F76' ,
             }
           })
           .then(res => {
@@ -61,7 +61,6 @@ function CurrencyList() {
             setCurrencyExchangeData(currencyExchange)
           })
     }, [currencyExchangeIds])
-
 
     const listColumns: Array<COLUMNITEM> = [
       {
@@ -71,22 +70,20 @@ function CurrencyList() {
     },
     {
       dataField: 'price_usd',
-      text: 'Price $USD',
+      text: 'Price in $USD',
       sort: true
     },];
 
-
     return (
-        <div style={{display:"flex",flexDirection:"row", alignItems:"center", justifyContent:"center" }}>
-          <div style={{height:"800px", width:"400px", overflow:"scroll", border:"1px solid black" }}>
-            <input type="text" placeholder='search...' onChange={setNewData}></input>
+        <div className="wrapper">
+          <div className= "currency-list">
+            <h3>Currency List</h3>
+          <input className="search-input" type="text" placeholder='search...' onChange={setNewData}></input>
           <BootstrapTable keyField='asset_id' data={ filterableCurrencyItems } columns={ listColumns } rowEvents={ rowEvents} />
           </div>
-          <div style={{height:"800px", width:"400px", border:"1px solid black", display:"flex", flexDirection:"column" }}>
-            {
-              hasData && <CurrencyItemDetails data={currencyItemDetails} />
-            }
-            <div style={{height:"400px", width:"400px"}}>
+          <div className='right-panel'>
+            <CurrencyItemDetails hasData={hasData} data={currencyItemDetails} />
+            <div className="currency-exchange">
             <h3>Currency Exchange</h3>
             <h6>Make two selections from currency table to view Currency Exchange</h6>
             {currencyExchangeIds.length ===2 &&
@@ -94,7 +91,6 @@ function CurrencyList() {
             }
             </div>
           </div>
-          
         </div>
     );
 }

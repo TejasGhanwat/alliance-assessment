@@ -2,8 +2,11 @@ import './styles.css'
 function CurrencyItemDetails(props:any) {
 
     return (
-        <div className=''>
-            <table className='myTable'>
+        <div className='currency-details'>
+            <h3>Currency Details</h3>
+            <h6>Select currency from table to view details</h6>
+            {props.hasData &&
+                <table className='myTable'>
                 <thead>
                     <tr>
                         <th></th>
@@ -22,8 +25,9 @@ function CurrencyItemDetails(props:any) {
                     )
                    })}
                 </tbody>
-   
             </table>
+            }
+            
         </div>
     );
 }

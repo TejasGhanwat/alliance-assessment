@@ -1,0 +1,10 @@
+.currency-exchange-flex{
+    display:flex;
+    flex-direction:row;
+    color:'white';
+    align-items: center;
+}
+
+p{
+    font-size: 30px;
+}

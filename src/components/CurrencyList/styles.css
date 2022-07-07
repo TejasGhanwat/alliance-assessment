@@ -1,0 +1,62 @@
+.search-input{
+    width: 70%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.wrapper{
+ display:flex;
+ flex-direction:row;
+ align-items:center;
+ justify-content:center;
+ border: 1px solid white;
+ width:50%;
+ height:800px
+}
+
+.currency-list{
+ height:750px;
+ width:400px; 
+ overflow:scroll;
+ overflow-x: hidden;
+ border:1px solid black;
+ color:white;
+ display: flex;
+ align-items: center;
+ flex-direction: column;
+}
+
+table, td, th{
+    border: 1px solid, white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: small;
+}
+
+th{
+    font-weight: 800;
+}
+
+td{
+    text-align: center
+}
+
+.right-panel{
+  height:750px;
+  width:400px;
+  display:flex; 
+  flex-direction:column;
+
+}
+
+.currency-exchange{
+    height:300px; 
+    width:400px;
+    display:flex; 
+    flex-direction:column;
+    align-items: center;
+}
+
