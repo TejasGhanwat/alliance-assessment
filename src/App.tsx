@@ -1,10 +1,9 @@
-import React from 'react';
 import './App.css';
-import CurrencyList from './components/CurrencyList'
+import Index from './components/CurrencyList/CurrencyList'
 function App() {
   return (
     <div className="App">
-     <CurrencyList />
+     <Index />
     </div>
   );
 }

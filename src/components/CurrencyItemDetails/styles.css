@@ -1,0 +1,19 @@
+.myTable {
+    border: 1px solid black;
+    border-collapse: collapse;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    table-layout:fixed;
+    width:100%;
+  }
+
+  .item-details{
+   display:flex;
+   flex-direction:column;
+   height: 400px;
+   width:400px;
+   position: relative;
+   overflow: scroll;
+    }
